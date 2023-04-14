@@ -1,0 +1,416 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+
+body, input, input::placeholder, a, .v-application{
+  font-family: 'Dosis', sans-serif !important;
+}
+
+.theme--light.v-application {
+  //background: linear-gradient(90deg, rgba(238, 92, 135, 0.1), rgba(241, 164, 181, 0.1), rgba(213, 135, 179, 0.1)) !important;
+  //background: linear-gradient(90deg, #d5eaf6, #efefef) !important;
+  background: none;
+}
+
+.s {
+
+}
+a{
+  text-decoration: none;
+}
+
+.text-black{
+  color: #4b4b4b !important;
+}
+div.mapcontrol div.control{
+  display: none !important;
+}
+.h4{
+  font-size: 22px;
+  color: #333;
+  font-weight: 600;
+}
+
+.firstLetterBig{
+  &::first-letter {
+    font-weight: bold;
+    font-size: 130%;
+    margin: 0 3px;
+  }
+}
+
+.tag{
+  background: #fff;
+  display: flex;
+  align-self: center;
+  border-radius: 50px;
+  color: #313131;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 3px 12px;
+  &.border{
+    border: 1px solid #6b6b6b;
+  }
+}
+.glass {
+  background: rgba(255, 255, 255, 0.3) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(5.8px) !important;
+  -webkit-backdrop-filter: blur(5.8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+}
+
+.theme--light.app-navigation-menu, .v-application.theme--light .v-sheet.v-card {
+  @extend .glass;
+}
+
+.theme--light {
+  //background: none !important;
+  .vdp-datepicker__calendar {
+    background: none;
+    border: none;
+  }
+
+  .vdp-datepicker__calendar .cell.highlighted {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+}
+
+img {
+  max-width: 100%;
+}
+
+$tableBorder: 1px solid rgba(190, 190, 190, 0.51);
+.table {
+  border: $tableBorder;
+  border-bottom: none;
+
+  &-head, &-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 10px;
+
+    & > div {
+      padding: 5px;
+      border-right: $tableBorder;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+
+  &-item {
+    & > div {
+      padding-bottom: 5px;
+    }
+
+    border-bottom: $tableBorder;
+  }
+
+  &-head {
+    font-weight: 500;
+
+    & > div {
+      padding-bottom: 10px;
+    }
+  }
+}
+
+@import '@/plugins/vuetify/default-preset/preset/variables.scss';
+
+.white-bg{
+  background: #fff;
+}
+.theme--light.v-app-bar.v-toolbar.v-sheet{
+  background: #fff !important;
+}
+.area {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 0;
+  left: 0;
+}
+
+.circles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.circles li {
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(98, 123, 217, 0.09);
+  animation: animate 25s linear infinite;
+  bottom: -150px;
+
+}
+
+.circles li:nth-child(1) {
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(11) {
+  left: 15%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 2s;
+}
+.circles li:nth-child(2) {
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.circles li:nth-child(3) {
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.circles li:nth-child(4) {
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.circles li:nth-child(5) {
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(6) {
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.circles li:nth-child(7) {
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.circles li:nth-child(8) {
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.circles li:nth-child(9) {
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.circles li:nth-child(10) {
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+
+@keyframes animate {
+
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+    border-radius: 0;
+  }
+
+  100% {
+    transform: translateY(-1000px) rotate(720deg);
+    opacity: 0;
+    border-radius: 50%;
+  }
+
+}
+
+
+
+.vertical-nav-menu-link.v-list-item--active {
+  .v-list-item__title{
+    color: #333 !important;
+  }
+  svg{
+    color: #333 !important;
+  }
+}
+
+.housesFilters{
+  .v-input{
+    padding: 0;
+    height: 50px;
+    .v-text-field__details{
+      display: none;
+    }
+    .v-input__control > .v-input__slot:before,  .v-input__control > .v-input__slot:after{
+      display: none;
+    }
+    border-radius: 50px;
+    border: 1px solid #eaeaea;
+  }
+  .rooms{
+    .v-select__selections{
+      min-height: 50px !important;
+      padding-left: 15px;
+    }
+  }
+  .chips{
+    .v-select__selections{
+      padding-top: 4px !important;
+      padding-left: 5px;
+    }
+  }
+  .v-input__append-outer, .v-input__prepend-outer{
+    .v-input{
+      border: none;
+      padding-left: 10px;
+      padding-top: 7px;
+    }
+  }
+  .v-text-field .v-input__append-inner{
+    margin-top: 10px !important;
+  }
+  .dates{
+    label{
+      margin-bottom: 5px;
+      display: inline-flex;
+    }
+  }
+}
+.dates .vhd__datepicker__dummy-wrapper{
+  border-radius: 50px;
+  height: 50px;
+}
+
+.mainBtn{
+  border-radius: 5px;
+  border: 1px solid rgba(154, 154, 154, 0.49);
+  padding: 0.4em 0.8em;
+  display: flex;
+  align-items: center;
+  svg{
+    opacity: 0.35;
+  }
+}
+.v-dialog .v-image{
+}
+h5{
+  font-size: 25px;
+  font-weight: 700;
+  color: #333;
+}
+h6{
+  font-size: 19px;
+  font-weight: 600;
+  color: #333;
+}
+.vhd__datepicker{
+  right: 0;
+}
+.vhd__datepicker__wrapper--grid .vhd__square .vhd__datepicker__month-day{
+  border-radius: 50%;
+  transform: scale(0.95);
+}
+.vhd__datepicker__month-day--today .vhd__datepicker__month-day-wrapper{
+  border-radius: 50%;
+}
+.vhd__datepicker__month-day--halfCheckIn:before, .vhd__datepicker__month-day--halfCheckOut:before, .vhd__datepicker__month-day--halfCheckIn:before, .vhd__datepicker__month-day--halfCheckOut:before{
+  z-index: 2 !important;
+  opacity: 0.5;
+  width: 100% !important;
+  height: 100% !important;
+  border: none !important;
+  background: #333;
+}
+h1{
+  color: #333;
+}
+.blockTab{
+  display: flex;
+  border: 1px solid #c7c7c7;
+  min-width: 176px;
+  max-width: 176px;
+  padding: 20px;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: start;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  -webkit-column-gap: 10px;
+  -moz-column-gap: 10px;
+  color: #333;
+  column-gap: 10px;
+  &-title{
+    font-size: 18px;
+    font-weight: 500;
+  }
+  svg{
+    max-width: 35px;
+  }
+  &-text{
+    font-size: 17px;
+  }
+  &:hover{
+    border: 1px solid #a9a9a9;
+  }
+}
+
+
+.v-dialog .v-image, .v-dialog .v-window{
+  height: initial !important;
+  max-height: 90vh;
+  aspect-ratio: 16/9 !important;
+  overflow: hidden;
+}
+.whiteBtn{
+  border-radius: 5px;
+  background: #ffff;
+  border: 1px solid #333;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.4em 0.8em;
+  display: flex;
+  transition: .3s;
+  align-items: center;
+  &.activeHover{
+    opacity: 0.7;
+    &:hover{
+      opacity: 1;
+    }
+  }
+}
