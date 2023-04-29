@@ -29,10 +29,11 @@ export default {
   position: relative;
   .mini-img{
     position: absolute;
+    z-index: 10;
     top: 0;
-    width: 500px;
-    max-width: 80vw;
-    height: 370px;
+    width: 100%;
+    min-width: 500px;
+    max-width: 45vw;
     left: 0;
     opacity: 0;
     transform: scale(0);

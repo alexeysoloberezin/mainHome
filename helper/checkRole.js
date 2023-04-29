@@ -8,7 +8,7 @@ const roles = [
 export default function checkRole(email) {
   let resRole =  null
   roles.forEach(role => {
-    if (role.email === email){
+    if (role?.email === email){
       resRole = role.role
     }
   })
@@ -19,7 +19,7 @@ export default function checkRole(email) {
 export function isAdmin(email) {
   let resRole =  false
   roles.forEach(role => {
-    if (role.email === email){
+    if (role?.email === email){
       if (role.role === 'admin'){
         resRole = true
       }

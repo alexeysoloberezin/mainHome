@@ -240,6 +240,12 @@ export default {
     })
   },
   computed: {
+    currency(){
+      return this.$store.state.currency
+    },
+    currencyValue(){
+      return this.$store.state.currencyValue
+    },
     loading() {
       return this.$store.state.houses.loading
     },
@@ -284,16 +290,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.grid-cards {
-  display: grid;
-  grid-gap: 20px;
-  transition: .5s;
 
-  & > a:nth-child(1) {
-    grid-column: 1/3;
-    height: 100%;
-  }
-}
 
 .icons-card {
   cursor: pointer;

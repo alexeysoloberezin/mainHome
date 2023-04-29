@@ -37,7 +37,7 @@ export default {
     { src: '~/plugins/vue-composition-api.js', mode: 'client' },
     { src: '~/plugins/vue-apexchart.js', ssr: false },
     { src: '~/plugins/VuetifyDaterangePicker.js', mode: 'client' },
-    { src: '~/plugins/moment.js' }
+    { src: '~/plugins/moment.js' },
   ],
 
 
@@ -66,7 +66,7 @@ export default {
   },
 
   router: {
-    middleware: ['auth']
+    // middleware: ['auth']
   },
 
   firebase: {
@@ -120,14 +120,23 @@ export default {
       fallbackLocale: 'en',
       messages: {
         en: {
+          priceWarning: 'This amount calculator is a test, the price will be clarified before renting.',
+          close: 'Close',
+          video: 'Video',
+          OurContacts: 'Our Contacts',
           aboutHouse: 'About the house',
           price: 'Price',
           pricePeriod: 'Find out the price for the period',
           contact: 'Contacts',
           houses: 'Houses',
+          housesOnMap: 'Houses on a map',
           aboutUs: 'About Us',
           advantages: 'Advantages',
           month: 'Month',
+          weeksX2: 'Two weeks',
+          weeksX1: 'Week',
+          daily: 'Daily',
+          yearly: 'Yearly',
           monthsX2: 'Two Months',
           monthsX3: 'Three Months',
           hiddenPrice: 'Show hidden price (that price only for rent > 1 month)',
@@ -155,16 +164,25 @@ export default {
           distanceBeach: 'Distance to the beach',
         },
         ru: {
+          priceWarning: 'Данный калькулятор суммы является тестовым, перед арендой цена будет уточнена.',
+          video: 'Видео',
+          close: 'Закрыть',
+          OurContacts: 'Наши контакты',
           aboutHouse: 'Информация о доме',
           price: 'Цена',
           pricePeriod: 'Узнать цену за период',
           contact: 'Контакты',
           houses: 'Дома',
+          housesOnMap: 'Дома на карте',
           aboutUs: 'О нас',
           advantages: 'Преимущества',
           month: 'Месяц',
           monthsX2: 'Два месяца',
           monthsX3: 'Три месяца',
+          yearly: 'Год',
+          weeksX2: 'Две недели',
+          weeksX1: 'Неделя',
+          daily: 'День',
           hiddenPrice: 'Показать скрытую цену (такая цена только при аренде > 1 месяца)',
           tv: 'Телевизор',
           garden: 'Сад',

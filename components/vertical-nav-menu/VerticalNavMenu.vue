@@ -130,7 +130,7 @@ export default {
   },
   computed: {
     isAdmin() {
-      return isAdmin(this.$store.state.user.email)
+      return isAdmin(this.$store.state.user?.email)
     }
   },
   props: {

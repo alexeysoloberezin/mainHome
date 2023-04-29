@@ -1,11 +1,19 @@
 export const state = () => ({
   houses: [],
-  loading: false
+  loading: false,
+  favoriteCount: null,
 })
 
 export const mutations = {
   setHouses(state, value) {
     state.houses = value
+  },
+  setFavoriteCount(state, value){
+    state.favoriteCount = value
+  },
+  refreshHouses(state, value) {
+    console.log('refresh HOuses!!!')
+    state.houses = JSON.parse(JSON.stringify(state.houses))
   },
   setHousesLoading(state, value) {
     state.loading = value
@@ -21,7 +29,6 @@ export const actions = {
       commit('setHousesLoading', false)
       commit('setHouses', houses)
     } catch (error) {
-      console.error('Ошибка при получении домов', error)
       commit('setHousesLoading', false)
     }
   }

@@ -3,7 +3,7 @@ export function makePrice (price, withIdr) {
   let formattedPrice = price.toLocaleString('en-US', options) // '$20,000,000' for US locale
 
   if(withIdr){
-    formattedPrice = formattedPrice + ' IDR'
+    formattedPrice = +formattedPrice.toFixed(1)
   }
 
   return formattedPrice

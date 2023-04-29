@@ -250,106 +250,55 @@ export default {
 
       house: {
         info: {
-          id: 4,
-          name: 'Center Bukit big house 2BD',
+          id: 5,
+          name: 'Ari House 2BD',
           location: 'Center Bukit',
           locationMiniImg: 'Screenshot_7.png',
           rooms: 2,
           bethRooms: 3,
           kitchen: true,
-          tv: true,
-          ac: 3,
+          tv: false,
+          ac: 2,
           parking: true,
           fridge: true,
           workTable: true,
           garden: true,
           distanceToTheBeach: null,
           price: {
-            monthlyX1: 28000000,
-            monthlyX2: 25000000,
-            monthlyX3: 22000000,
+            monthlyX1: 19000000,
+            monthlyX2: 17000000,
+            monthlyX3: 15000000,
             yearly: null,
             week: null,
-            daily: 1200000,
+            daily: 750000,
           },
-          description: `
-            📍Вилла Букит,Джимбаран <br>
-             ✅ Очень тихое и чистое место, вблизи от всей инфраструктуры, соседи тихие. <br>
-             ✅ Вода, интернет (включено) <br>
-             ✅ Свет включён до 1 mln. В среднем 700.000 рупий в месяц.  <br>
-             ✅ 2 комнаты <br>
-             ✅ 3 сан.узла (душ) <br>
-             ✅ Гостиная  <br>
-             ✅ Кухня <br>
-             ✅ Большой холодильник <br>
-             ✅ Скидка при аренде от 3 месяцев. <br>
-             ✅ Рабочие места <br>
-             ✅ Интернет 40-90мб. <br>
-             ✅ Уборка 1 раз в неделю <br>
-             ✅ Кондиционеры <br>
-             ✅ Парковка <br>
-             ✅ кофемашина  <br>
-             ✅2 телевизора <br>
-             💵 28mln. Месяц (все включено!!!) <br>
-            🔥Дом свободен к заселению с 28 февраля!
-          `,
-          status: 'Av',
+          description: ``,
           hot: false,
           img: [
-            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/C9%2Fphoto_5_2023-04-11_13-42-10.jpg?alt=media&token=7e3c5250-458d-494b-a68b-065ec5a4140f',
-            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/C9%2Fphoto_8_2023-04-11_13-42-10.jpg?alt=media&token=2af973d4-e416-49d3-9b44-fceb9ef69fe5',
-            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/C9%2Fphoto_4_2023-04-11_13-42-10.jpg?alt=media&token=4b3380f2-7eda-45b0-8981-61540c94f605',
-            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/C9%2Fphoto_2_2023-04-11_13-42-10.jpg?alt=media&token=56e62693-36c4-4417-981f-cb86f5af77de',
-            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/C9%2Fphoto_2_2023-04-11_13-42-10.jpg?alt=media&token=56e62693-36c4-4417-981f-cb86f5af77de',
-            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/C9%2Fphoto_2_2023-04-11_13-42-10.jpg?alt=media&token=56e62693-36c4-4417-981f-cb86f5af77de',
-            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/C9%2Fphoto_8_2023-04-11_13-42-10.jpg?alt=media&token=2af973d4-e416-49d3-9b44-fceb9ef69fe5',
+            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/Ari%2Fphoto_7_2023-04-25_18-43-37.jpg?alt=media&token=3d39832a-4bb0-4716-8c84-ad1e7ef2a156',
+            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/Ari%2Fphoto_8_2023-04-25_18-43-37.jpg?alt=media&token=19beb2de-a9ea-4330-b17f-c1ed57d45a3a',
+            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/Ari%2Fphoto_3_2023-04-25_18-43-37.jpg?alt=media&token=ffa0f683-043a-4539-8c59-738b1eed3cf1',
+            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/Ari%2FIMG_0601.jpeg?alt=media&token=535b1e83-711d-47a2-b437-3715abb4e57d',
+            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/Ari%2Fphoto_10_2023-04-25_18-43-37.jpg?alt=media&token=f9d23ab6-f479-4fef-a7b7-dd1a2a622e35',
+            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/Ari%2Fphoto_2_2023-04-25_18-43-37.jpg?alt=media&token=7198655f-01b1-45f5-ae75-56c8d84b4df4',
+            'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/Ari%2Fphoto_6_2023-04-25_18-43-37.jpg?alt=media&token=0f53f931-7ecd-44d6-9e69-7543ee1a343e',
           ],
         },
         rentPrice: {
-          longRent: '1 year', // days
+          longRent: '180 days', // days
           startRent: '01/01/2023',
           nextPayment: '01/01/2024',
-          yearly: 95000000,
-          monthly: 8000000,
+          yearly: 70000000,
+          monthly: null,
           contacts: []
         },
         customerRentPrice: [
           {
-            name: 'Slava',
+            name: 'Anatoliy',
             contacts: [],
-            startRent: '01/16/2023',
-            nextPayment: '02/16/2023',
-            totalPrice: 25000000,
-            cleaning: true,
-            internet: true,
-            light: 1000000,
-          },
-          {
-            name: 'Slava',
-            contacts: [],
-            startRent: '02/16/2023',
-            nextPayment: '02/27/2023',
-            totalPrice: 8850000,
-            cleaning: true,
-            internet: true,
-            light: 0,
-          },
-          {
-            name: 'Slava',
-            contacts: [],
-            startRent: '02/27/2023',
-            nextPayment: '03/04/2023',
-            totalPrice: 1350000,
-            cleaning: true,
-            internet: true,
-            light: 0,
-          },
-          {
-            name: 'Alexey',
-            contacts: [],
-            startRent: '03/05/2023',
-            nextPayment: '04/15/2023',
-            totalPrice: 37300000,
+            startRent: '02/18/2023',
+            nextPayment: '04/18/2023',
+            totalPrice: 34000000,
             cleaning: true,
             internet: true,
             light: 0,
@@ -360,15 +309,15 @@ export default {
         ],
         ourPayments: {
           internet: {
-            bank: 'BCA',
-            name: 'C9',
-            code: '58322',
-            owner: 'Leonid',
-            bankNumber: '52579058332',
+            bank: '',
+            name: '',
+            code: '',
+            owner: '',
+            bankNumber: '',
           },
           water: {
-            number: '070600029595',
-            img: 'https://firebasestorage.googleapis.com/v0/b/vue-main-42e70.appspot.com/o/C9%2FWhatsApp%20Image%202023-03-03%20at%2010.26.28.jpg?alt=media&token=f8b0a608-e615-48db-9229-5904d96d42ac'
+            number: '',
+            img: ''
           },
         },
       },

@@ -1,21 +1,36 @@
 <template>
   <div class="" :class="`cardHouse glass ${vertical ? 'houseHot' : ''}`">
-    <img class="cardHouse-img" :src="house.info.img[0] || 'housePlaceholder.jpg'" alt="">
+    <div class="cardHouse-img">
+      <img :src="house.info.img[0] || 'housePlaceholder.jpg'" alt="">
+      <div class="cardHouse-favorite">
+        <v-btn icon @click.prevent.stop="makeFavorite(house.info.id)">
+          <v-icon :key="renderHeart" color="red">{{
+              checkFavorite(house.info.id) ? 'mdi-heart' : 'mdi-heart-outline'
+            }}
+          </v-icon>
+        </v-btn>
+      </div>
+    </div>
+
     <div class="cardHouse-leftTopTags">
-      <LocationTag :mini-img="house.info.locationMiniImg" :name-location="house.info.location"/>
+      <router-link to="/mapPage" >
+        <LocationTag :mini-img="house.info.locationMiniImg" :name-location="house.info.location"/>
+      </router-link>
       <AvailbleTag :value="house.customerRentPrice[house.customerRentPrice.length - 1].nextPayment"/>
       <hot-tag v-if="house.info.hot"/>
     </div>
+
     <div class="cardHouse-btn">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>chevron-right</title>
         <path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/>
       </svg>
     </div>
     <div class="cardHouse-info">
-      <div class="cardHouse-price text--black"><span class="h4">{{
-          house.info.price.monthlyX1
-        }} IDR </span><span>{{ $t('perMonth') }}</span></div>
-      <div class="cardHouse-name">{{ house.info.name }}</div>
+<!--      <div class="cardHouse-price text&#45;&#45;black" :key="refreshPrice"><span class="h4">{{-->
+<!--          calcPriceMethod(house.info.price.monthlyX1)-->
+<!--        }} {{ currency }} </span><span>{{ $t('perMonth') }}</span></div>-->
+      <div class="cardHouse-name mb-2">{{ house.info.name }}</div>
+      <PriceBox small :price="house.info.price"/>
       <div class="cardHouse-list">
         <div class="cardHouse-item">
           <BedIcon/>
@@ -47,17 +62,64 @@ import LocationTag from "~/components/tags/LocationTag"
 import HotTag from "~/components/tags/HotTag"
 import BethICon from "~/components/icon/Beth"
 import AvailbleTag from "~/components/tags/AvailbleTag"
+import addFavoriteHouse, {checkFavorite} from "~/helper/favoriteHouse"
+import calcPriceCurrency from "~/helper/calcPriceCurrecny"
+import {makePrice} from "~/helper/makeMillion"
+import PriceBox from "~/components/price/Price"
 
 export default {
   name: "cardHouse",
-  components: {AvailbleTag, BethICon, HotTag, LocationTag, BedIcon},
+  components: {PriceBox, AvailbleTag, BethICon, HotTag, LocationTag, BedIcon},
   props: {
     img: String,
     houseHot: Boolean,
     vertical: Boolean,
     house: Object,
+    refreshAfterFavorite: Boolean
   },
-  methods: {}
+  data() {
+    return {
+      renderHeart: 0,
+      refreshPrice: 0
+    }
+  },
+  watch: {
+    currencyValue() {
+      console.log('1231231', this.currencyValue)
+    }
+  },
+  computed: {
+    hotPrice() {
+      if (this.house.info.hotPrice) {
+        return this.house.info.price[this.house.info.hotPrice]
+      }
+
+      return null
+    },
+    currency() {
+      return this.$store.state.currency
+    },
+    currencyValue() {
+      return this.$store.state.currencyValue
+    },
+  },
+  methods: {
+    checkFavorite(id) {
+      return checkFavorite(id)
+    },
+    calcPriceMethod(price) {
+      return makePrice(calcPriceCurrency(price, this.$store.state.currency, this.$store.state.currencyValue))
+    },
+    makeFavorite(id) {
+      this.renderHeart = this.renderHeart + 1
+      if (id) {
+        addFavoriteHouse(id, this.$store)
+        if (this.refreshAfterFavorite) {
+          this.$store.commit('houses/refreshHouses')
+        }
+      }
+    },
+  }
 }
 </script>
 
@@ -79,6 +141,12 @@ export default {
   }
 }
 
+
+@keyframes rotate {
+  50% {
+    transform: translateX(100%);
+  }
+}
 .cardHouse {
   position: relative;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
@@ -93,14 +161,19 @@ export default {
     flex-direction: row;
     height: 100%;
 
-    & > img {
+    .cardHouse-img {
       width: 65%;
+      //margin: 6px;
       flex-shrink: 0;
       border-radius: 8px 0 0 8px;
     }
 
     .cardHouse-btn {
       display: none;
+    }
+    .cardHouse-info{
+      position: relative;
+      z-index: 5;
     }
 
     .cardHouse-price {
@@ -110,7 +183,8 @@ export default {
 
   &-name {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
+    font-family: 'Comfortaa', sans-serif;
   }
 
   svg {
@@ -160,6 +234,19 @@ export default {
     width: 100%;
     object-fit: cover;
     display: block;
+  }
+
+  &-img {
+    position: relative;
+  }
+
+  &-favorite {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 3px 2px 0 1px;
+    border-radius: 50%;
   }
 
   h4 {

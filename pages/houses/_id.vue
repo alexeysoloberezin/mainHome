@@ -12,10 +12,10 @@
     <template v-else>
       <div v-if="getHouse" class="mainHouse container">
         <div>
-          <v-dialog v-model="galleryDialog" class="modalImages" :max-height="800">
+          <v-dialog v-model="galleryDialog" class="modalImages" :max-height="800" :max-width="1700">
             <v-carousel hide-delimiters cycle>
               <v-carousel-item v-for="(image, index) in getHouse.info.img" :key="image + index">
-                <v-img :src="image" contain :center="true"/>
+                <v-img :src="image" contain :center="true" :aspect-ratio="16/9"/>
               </v-carousel-item>
             </v-carousel>
           </v-dialog>
@@ -24,7 +24,16 @@
           <LocationTag border :name-location="getHouse.info.location"/>
           <hot-tag v-if="getHouse.info.hot"/>
         </div>
-        <h1 class="text--black mb-3">{{ getHouse.info.name }}</h1>
+        <div class="d-flex ">
+          <h1 class="text--black mb-3">{{ getHouse.info.name }}</h1>
+
+          <v-btn icon @click="makeFavorite(getHouse.info.id)" class="ml-auto">
+            <v-icon :key="renderHeart" color="red">
+              {{ checkFavorite(getHouse.info.id) ? 'mdi-heart' : 'mdi-heart-outline' }}
+            </v-icon>
+          </v-btn>
+          <v-btn v-if="getHouse.info.video" color="success" outlined @click="openVideoMet">{{ $t('video') }}</v-btn>
+        </div>
         <div class="mainHouse-images">
           <div class="mainHouse-images-left">
             <div><img :src="getHouse.info.img[0]" @click.prevent="openGallery()" alt=""></div>
@@ -140,19 +149,52 @@
                 <div class="dates my-4 ">
                   <h4 class="mb-4 h4">{{ $t('pricePeriod') }}</h4>
                   <div>
-                    <div class="dates-price mb-2" v-if="selectedNights">Price <b>{{ calculatePrice(getHouse.info.price) }}</b> for <b>{{ selectedNights }} nights</b> </div>
+                    <div class="dates-price mb-2" v-if="selectedNights">Price
+                      <b>{{ makePrice(calcPriceMethod(calculatePrice(getHouse.info.price))) }}</b> for
+                      <b>{{ selectedNights }} nights</b></div>
+                    <div  v-if="selectedNights" class="my-3">{{ $t('priceWarning') }}</div>
                   </div>
                   <input style="position:absolute;visibility: hidden" id="input-id" type="text"/>
                 </div>
               </div>
 
-              <v-btn width="100%" color="success" class="mt-4" @click="$store.commit('SHOW_CONTACT_MODAL')">{{ $t('contact') }}
+              <v-btn width="100%" color="success" class="mt-4" @click="$store.commit('SHOW_CONTACT_MODAL')">
+                {{ $t('contact') }}
               </v-btn>
+              <v-menu offset-y :close-on-content-click="false">
+                <template v-slot:activator="{ on }">
+                  <v-btn color="success" class="mt-2" outlined width="100%" v-on="on">
+                    Change currency
+                  </v-btn>
+                </template>
+                <v-list class="pa-2">
+                  <h4>Currency</h4>
+                  <v-list-item-group>
+                    <v-list-item v-for="currencyItem in currencyList"
+                                 :key="currencyItem"
+                                 :disabled="currency === currencyItem"
+                                 @click="getPrice( currencyItem)"
+                    >
+                      <button>
+                        {{ currencyItem }}
+                      </button>
+                    </v-list-item>
+                  </v-list-item-group>
+                </v-list>
+              </v-menu>
             </div>
           </div>
         </div>
       </div>
     </template>
+
+    <div class="modal" :class="{active: openVideo}" @click="toggleModal">
+      <video
+        v-if="openVideo"
+        autoplay
+        :src="getHouse.info.video"
+        controls></video>
+    </div>
   </div>
 </template>
 
@@ -169,17 +211,21 @@ import LocationTag from "~/components/tags/LocationTag"
 import HotTag from "~/components/tags/HotTag"
 import {makePrice} from "~/helper/makeMillion"
 import getDatesInRange from "~/helper/getDatesInRange"
+import calcPriceCurrency from "~/helper/calcPriceCurrecny"
+import addFavoriteHouse, {checkFavorite} from "~/helper/favoriteHouse"
 
 export default {
   name: "HouseZoom",
   components: {HotTag, LocationTag, PriceBox, TreeIcon, TvIcon, BethICon, RoomsIcon},
   data() {
     return {
+      renderHeart: 0,
       selectedDate: null,
       selectedNights: null,
       datepicker: null,
       calcPrice: null,
       dateObj: null,
+      openVideo: false,
 
       galleryDialog: false,
       showModal: false,
@@ -195,34 +241,67 @@ export default {
     })
   },
   methods: {
+    toggleModal(e){
+      if(e.target.classList.contains('modal')){
+        this.openVideo = false
+      }
+    },
+    openVideoMet() {
+      this.openVideo = !this.openVideo
+    },
+    checkFavorite(id) {
+      return checkFavorite(id)
+    },
+    makeFavorite(id) {
+      this.renderHeart = this.renderHeart + 1
+      if (id) {
+        addFavoriteHouse(id, this.$store)
+      }
+    },
+    makePrice(price) {
+      return makePrice(price) + ' ' + this.$store.state.currency
+    },
+    calcPriceMethod(price) {
+      return calcPriceCurrency(price, this.$store.state.currency, this.$store.state.currencyValue)
+    },
+    getPrice(currencyItem) {
+      if (currencyItem === 'USDT') {
+        this.$store.dispatch('fetchCurrencyUSDTIDR')
+      } else if (currencyItem === "IDR") {
+        this.$store.commit('SET_CURRENCY_VALUE', 1)
+        this.$store.commit('SET_CURRENCY', 'IDR')
+      } else if (currencyItem === 'RUB') {
+        this.$store.dispatch('fetchCurrencyRubIdr')
+      }
+    },
     calculatePrice(price) {
-      if(!this.dateObj?.days && !this.dateObj?.months) return ''
+      if (!this.dateObj?.days && !this.dateObj?.months) return ''
 
       console.log(this.dateObj, price)
       let res = 0
 
-      if(this.dateObj?.months >= 3){
-        if(price?.monthlyX3){
+      if (this.dateObj?.months >= 3) {
+        if (price?.monthlyX3) {
           res += price.monthlyX3 * this.dateObj?.months
         }
       }
 
-      if(this.dateObj?.months === 2){
-        if(price?.monthlyX2){
+      if (this.dateObj?.months === 2) {
+        if (price?.monthlyX2) {
           res += price.monthlyX2 * this.dateObj?.months
-        }else{
+        } else {
           res += price.monthlyX1 * this.dateObj?.months
         }
       }
 
-      if(this.dateObj?.months >= 1 && this.dateObj?.months < 2 ){
-        if(price?.monthlyX1){
+      if (this.dateObj?.months >= 1 && this.dateObj?.months < 2) {
+        if (price?.monthlyX1) {
           res += price.monthlyX1 * this.dateObj?.months
         }
       }
 
-      if(this.dateObj?.days >= 7){
-        if(price?.week){
+      if (this.dateObj?.days >= 7) {
+        if (price?.week) {
           let count = 0
           for (let i = 1; i <= this.dateObj?.days; i++) {
             if (i % 7 === 0) {
@@ -231,14 +310,14 @@ export default {
           }
           const daysRest = this.dateObj?.days - count * 7
           res += price.week * count + daysRest * price.daily
-        }else{
+        } else {
           res += price.daily * this.dateObj?.days
         }
-      }else{
+      } else {
         res += price.daily * this.dateObj?.days
       }
 
-      return makePrice(res, true)
+      return res
     },
     getMonthAndDaysDifference(dateRangeString) {
       const [start, end] = dateRangeString.split(' - ')
@@ -307,7 +386,15 @@ export default {
     }
   },
   computed: {
-
+    currencyList() {
+      return this.$store.state.currencyList
+    },
+    currency() {
+      return this.$store.state.currency
+    },
+    currencyValue() {
+      return this.$store.state.currencyValue
+    },
     loading() {
       return this.$store.state.houses.loading
     },
@@ -322,7 +409,6 @@ export default {
       }
     }
   },
-
 }
 </script>
 
@@ -333,15 +419,18 @@ export default {
   width: 100%;
   grid-gap: 10px;
 }
-.dates-price{
+
+.dates-price {
   font-size: 18px;
   font-weight: 500;
-  b{
+
+  b {
     font-size: 20px;
     font-weight: 600;
     color: #333;
   }
 }
+
 .mainHouse {
   &-block {
     padding: 30px 0 30px 0;
